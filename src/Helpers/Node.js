@@ -1,6 +1,7 @@
 function Node(val) {
     this.value = val;
-    this.oAdjacent = [];
+    this.adjacents = [];
+    this.visited = false;
 }
 
 module.exports = Node;
