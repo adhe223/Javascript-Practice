@@ -12,6 +12,13 @@ module.exports = function(config) {
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
     frameworks: ['jasmine', 'browserify'],
 
+    browserify: {
+        debug: true,
+        transform: ['babelify']
+    },
+
+    // use autoWatch=true for quick and easy test re-execution once files change
+    autoWatch: true,
 
     // list of files / patterns to load in the browser
     files: [
@@ -27,7 +34,8 @@ module.exports = function(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-      'spec/**/*.js' : ['browserify']
+      'spec/**/*.js' : ['browserify'],
+      'src/**/*.js' : ['browserify']
     },
 
 
@@ -47,17 +55,11 @@ module.exports = function(config) {
 
     // level of logging
     // possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
-    logLevel: config.LOG_INFO,
-
-
-    // enable / disable watching file and executing tests whenever any file changes
-    autoWatch: true,
-
+    logLevel: config.LOG_DEBUG,
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
     browsers: ['Chrome'],
-
 
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits
