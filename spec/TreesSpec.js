@@ -2,6 +2,8 @@ let BTNode = require('../src/Helpers/BTNode');
 let InOrder = require('../src/Trees/InOrder');
 let MinimalTreeCreator = require('../src/Trees/MinimalTreeCreator');
 let DepthLinkedLists = require('../src/Trees/DepthLinkedLists');
+let BalancedChecker = require('../src/Trees/BalancedChecker');
+let IsBST = require('../src/Trees/IsBST');
 
 describe("Trees test suite", function() {
    describe("InOrder traversal", function() {
@@ -50,6 +52,57 @@ describe("Trees test suite", function() {
             expect(linkedLists[2].value).toEqual("1");
             expect(linkedLists[2].next.value).toEqual("4");
             expect(linkedLists[2].next.next.value).toEqual("6");
+        });
+    });
+
+    describe("Balanced tree checker", function() {
+        let tester = new BalancedChecker();
+
+        it("should return true for a balanced tree", function() {
+            let head = new BTNode("5");
+            head.left = new BTNode("3");
+            head.left.left = new BTNode("1");
+            head.left.right = new BTNode("4");
+            head.right = new BTNode("7");
+            head.right.left = new BTNode("6");
+
+            let isBalanced = tester.isBalanced(head);
+            expect(isBalanced).toEqual(true);
+        });
+
+        it("should return false for an ubalanced tree", function() {
+            let head = new BTNode("5");
+            head.left = new BTNode("3");
+            head.right = new BTNode("7");
+            head.right.right = new BTNode("7");
+            head.right.right.right = new BTNode("7");
+            head.right.left = new BTNode("6");
+            head.right.left.left = new BTNode("4");
+
+            let isBalanced = tester.isBalanced(head);
+            expect(isBalanced).toEqual(false);
+        });
+    });
+
+    describe("BST checker", function() {
+        it("should return true fro a valid BST", function() {
+            let tester = new IsBST();
+            let head = new BTNode("5");
+            head.left = new BTNode("3");
+            head.right = new BTNode("7");
+            head.right.left = new BTNode("6");
+
+            expect(tester.checkTree(head)).toEqual(true);
+        });
+
+        it("should return false for an invalid BST", function() {
+            let tester = new IsBST();
+            let head = new BTNode("5");
+            head.left = new BTNode("3");
+            head.right = new BTNode("7");
+            head.right.left = new BTNode("4");
+
+            expect(tester.checkTree(head)).toEqual(false);
         });
     });
 });
