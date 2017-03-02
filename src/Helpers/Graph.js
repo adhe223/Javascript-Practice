@@ -1,5 +1,5 @@
 function Graph() {
-    this.oNodes = [];
+    this.aNodes = [];
 }
 
 module.exports = Graph;

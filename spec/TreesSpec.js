@@ -1,9 +1,11 @@
 let BTNode = require('../src/Helpers/BTNode');
+let DoublyLinkedNode = require('../src/Helpers/DoublyLinkedNode');
 let InOrder = require('../src/Trees/InOrder');
 let MinimalTreeCreator = require('../src/Trees/MinimalTreeCreator');
 let DepthLinkedLists = require('../src/Trees/DepthLinkedLists');
 let BalancedChecker = require('../src/Trees/BalancedChecker');
 let IsBST = require('../src/Trees/IsBST');
+let getNextNode = require('../src/Trees/NextNode');
 
 describe("Trees test suite", function() {
    describe("InOrder traversal", function() {
@@ -103,6 +105,23 @@ describe("Trees test suite", function() {
             head.right.left = new BTNode("4");
 
             expect(tester.checkTree(head)).toEqual(false);
+        });
+    });
+
+    describe("getNextNode", function() {
+        it("should return the next in order node", function() {
+            let head = new DoublyLinkedNode("5", null);
+            head.left = new DoublyLinkedNode("3", head);
+            head.right = new DoublyLinkedNode("6", head);
+            head.right.right = new DoublyLinkedNode("8", head.right);
+            head.left.left = new DoublyLinkedNode("1", head.left);
+            head.left.right = new DoublyLinkedNode("4", head.left);
+
+            expect(getNextNode(head.left).value).toEqual(head.left.right.value);
+            expect(getNextNode(head).value).toEqual(head.left.left.value);
+            expect(getNextNode(head.right).value).toEqual(head.right.right.value);
+            expect(getNextNode(head.left).value).toEqual(head.left.right.value);
+            expect(getNextNode(head.right.right)).toBeNull();
         });
     });
 });
