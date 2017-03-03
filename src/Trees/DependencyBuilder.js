@@ -1,98 +1,50 @@
 let Graph = require('../Helpers/Graph');
 let Node = require('../Helpers/Node');
 
+// TODO: This problem. Takes a ton of code.
 getBuildOrder = function(aProjects, aProjectPairs) {
-
+    let oDepsGraph = addPairsToGraph(aProjectPairs);
 };
 
-buildDepsGraph = function(aProjects, aProjectPairs) {
-    let oAddedDeps = {};
-    let oDeps = {};
-    let oGraph = new Graph();
-
-    // Populate the dictionary telling us if we have added a value to the graph
-    for (let i = 0; i < aProjects.length; i++) {
-        oAddedDeps[aProjects[i]] = false;
-    }
-
-    // Parse through the pairs and make the dependency hash map
-    for (let i = 0; i < aProjectPairs.length; i++) {
-        let oPair = aProjectPairs[i];
-        let strDependee = oPair.strDependee;
-        let strDependent = oPair.strDependent;
-
-        if (oDeps[strDependent]) {
-            oDeps[strDependent].push(strDependee);
-        } else {
-            oDeps[strDependent] = [strDependee];
-        }
-    }
-
-    // Build the graph from the hash map
-    for (let key in oDeps) {
-        if (oDeps.hasOwnProperty(key)) {
-            addDeps(oGraph, oDeps, oAddedDeps, key);
-        }
-    }
-
-};
-
-// Where do we look to see if the node already exists and we're adding a dependee to it
-addDeps = function(oGraph, oDeps, oAddedDeps, strDependent) {
-    if (oAddedDeps[strDependent]) {
-        return;
-    }
-
-    let aDeps = this[strDependent];
-    for (let i = 0; i < aDeps.length; i++) {
-        let strDependee = aDeps[i];
-
-        // Add the dep from the key to the strDependee
-        let oDependentNode = new Node(strDependent);
-        oDependentNode.adjacents.push(new Node(strDependee));
-        oGraph.aNodes.push(oDependentNode);
-        oAddedDeps[key] = true;
-
-        // Check if we have already added strDpendees deps
-        if (oAddedDeps[strDependee]) {
-            return;
-        }
-
-        // Otherwise we need to add all the deps from the strDependee
-        addDeps(oGraph, oDeps, oAddedDeps, strDependee);
-    }
-};
-
-getGraphNode = function(oGraph, strToFind) {
-    for (let i = 0; i < oGraph.aNodes.length; i++) {
-        let oFoundNode = traverseGraph(oNode, strToFind);
-        if (oFoundNode) {
-            return oFoundNode;
-        }
-    }
-
-    return null;
-};
-
-traverseGraph = function(oNode, strToFind) {
-    let stack = [];
-    stack.push(oNode);
+touchAllNodes = function(oNode, oProjects) {
+    let q = [];
+    q.push(oNode);
     oNode.visited = true;
 
-    while(stack.length > 0) {
-        let oCurrentNode = stack.pop();
-        if (oCurrentNode.value === strToFind) {
-            return oCurrentNode;
-        }
+    while(q.length > 0) {
+        let oCurrentNode = q.shift();
+        delete oProjects[]
 
         for (let i = 0; i < oCurrentNode.adjacents.length; i++) {
             let oNeighbor = oCurrentNode.adjacents[i];
             if (!oNeighbor.visited) {
-                stack.push(oNeighbor);
+                q.push(oNeighbor);
                 oNeighbor.visited = true;
             }
         }
     }
 
     return null;
+};
+
+
+
+addPairsToGraph = function(aProjectPairs) {
+    let oGraph = new Graph();
+
+    // Parse through the pairs and add to the graph
+    for (let i = 0; i < aProjectPairs.length; i++) {
+        let oPair = aProjectPairs[i];
+        let strDependee = oPair.strDependee;
+        let strDependent = oPair.strDependent;
+
+        let oDependentNode = oGraph.oNodes[strDependent] ? oGraph.oNodes[strDependent] : new Node(strDependent);
+        let oDependeeNode = oGraph.oNodes[strDependee] ? oGraph.oNodes[strDependee] : new Node(strDependee);
+        oDependentNode.adjacents.push(oDependeeNode);
+
+        oGraph.oNodes[oDependentNode.value] = oDependentNode;
+        oGraph.oNodes[oDependeeNode.value] = oDependeeNode;
+    }
+
+    return oGraph;
 };

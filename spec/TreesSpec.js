@@ -6,6 +6,7 @@ let DepthLinkedLists = require('../src/Trees/DepthLinkedLists');
 let BalancedChecker = require('../src/Trees/BalancedChecker');
 let IsBST = require('../src/Trees/IsBST');
 let getNextNode = require('../src/Trees/NextNode');
+let getFirstAncestor = require('../src/Trees/FirstCommonAncestor');
 
 describe("Trees test suite", function() {
    describe("InOrder traversal", function() {
@@ -122,6 +123,32 @@ describe("Trees test suite", function() {
             expect(getNextNode(head.right).value).toEqual(head.right.right.value);
             expect(getNextNode(head.left).value).toEqual(head.left.right.value);
             expect(getNextNode(head.right.right)).toBeNull();
+        });
+    });
+
+    describe("getFirstAncestor", function() {
+        it("should return the first common ancestor of two given nodes on separate sides", function() {
+            let head = new DoublyLinkedNode("5", null);
+            head.left = new DoublyLinkedNode("3", head);
+            head.right = new DoublyLinkedNode("6", head);
+            head.right.right = new DoublyLinkedNode("8", head.right);
+            head.left.left = new DoublyLinkedNode("1", head.left);
+            head.left.left.right = new DoublyLinkedNode("9", head.left.left);
+            head.left.right = new DoublyLinkedNode("4", head.left);
+
+            expect(getFirstAncestor(head.left.left.right, head.right).value).toEqual("5");
+        });
+
+        it("should return the first common ancestor of two given nodes on the same side", function() {
+            let head = new DoublyLinkedNode("5", null);
+            head.left = new DoublyLinkedNode("3", head);
+            head.right = new DoublyLinkedNode("6", head);
+            head.right.right = new DoublyLinkedNode("8", head.right);
+            head.left.left = new DoublyLinkedNode("1", head.left);
+            head.left.left.right = new DoublyLinkedNode("9", head.left.left);
+            head.left.right = new DoublyLinkedNode("4", head.left);
+
+            expect(getFirstAncestor(head.left.left.right, head.left.right).value).toEqual("3");
         });
     });
 });
