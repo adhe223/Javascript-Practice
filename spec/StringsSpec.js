@@ -36,7 +36,7 @@ describe("Strings test suite", function() {
     });
 
     describe("license string formmater", function() {
-        fit("should return the correct string", function() {
+        it("should return the correct string", function() {
             expect(licenseStringFormatter("2-4A0r7-4k", 4)).toEqual("24A0-R74K");
         });
     });

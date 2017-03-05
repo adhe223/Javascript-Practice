@@ -7,6 +7,7 @@ let BalancedChecker = require('../src/Trees/BalancedChecker');
 let IsBST = require('../src/Trees/IsBST');
 let getNextNode = require('../src/Trees/NextNode');
 let getFirstAncestor = require('../src/Trees/FirstCommonAncestor');
+let getAllArrays = require('../src/Trees/AllPossibleArrays');
 
 describe("Trees test suite", function() {
    describe("InOrder traversal", function() {
@@ -149,6 +150,19 @@ describe("Trees test suite", function() {
             head.left.right = new DoublyLinkedNode("4", head.left);
 
             expect(getFirstAncestor(head.left.left.right, head.left.right).value).toEqual("3");
+        });
+    });
+
+    describe("get all possible arrays to build the tree", function() {
+        it("should contain [2,1,3] and [2,3,1]", function() {
+            let arrayContainsArray = require('../src/Helpers/ArrayContainsArray');
+            let oHead = new BTNode(2);
+            oHead.left = new BTNode(1);
+            oHead.right = new BTNode(3);
+
+            aPossible = getAllArrays(oHead);
+            expect(arrayContainsArray([2,1,3], aPossible)).toEqual(true);
+            expect(arrayContainsArray([2,3,1], aPossible)).toEqual(true);
         });
     });
 });
