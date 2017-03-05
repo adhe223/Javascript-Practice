@@ -8,6 +8,7 @@ let IsBST = require('../src/Trees/IsBST');
 let getNextNode = require('../src/Trees/NextNode');
 let getFirstAncestor = require('../src/Trees/FirstCommonAncestor');
 let getAllArrays = require('../src/Trees/AllPossibleArrays');
+let isSubStree = require('../src/Trees/IsSubtree');
 
 describe("Trees test suite", function() {
    describe("InOrder traversal", function() {
@@ -163,6 +164,36 @@ describe("Trees test suite", function() {
             aPossible = getAllArrays(oHead);
             expect(arrayContainsArray([2,1,3], aPossible)).toEqual(true);
             expect(arrayContainsArray([2,3,1], aPossible)).toEqual(true);
+        });
+    });
+
+    describe("Tree has subtree of given node", function() {
+        it("should return true", function() {
+            let oHead = new BTNode(1);
+            oHead.left = new BTNode(2);
+            oHead.right = new BTNode(3);
+            oHead.right.left = new BTNode(4);
+            oHead.right.right = new BTNode(5);
+
+            let oHead2 = new BTNode(3);
+            oHead2.left = new BTNode(4);
+            oHead2.right = new BTNode(5);
+
+            expect(isSubStree(oHead, oHead2)).toEqual(true);
+        });
+
+        it("should return false", function() {
+            let oHead = new BTNode(1);
+            oHead.left = new BTNode(2);
+            oHead.right = new BTNode(3);
+            oHead.right.left = new BTNode(4);
+            oHead.right.right = new BTNode(5);
+
+            let oHead2 = new BTNode(3);
+            oHead2.left = new BTNode(4);
+            oHead2.right = new BTNode(6);
+
+            expect(isSubStree(oHead, oHead2)).toEqual(false);
         });
     });
 });
