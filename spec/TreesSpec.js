@@ -9,6 +9,7 @@ let getNextNode = require('../src/Trees/NextNode');
 let getFirstAncestor = require('../src/Trees/FirstCommonAncestor');
 let getAllArrays = require('../src/Trees/AllPossibleArrays');
 let isSubStree = require('../src/Trees/IsSubtree');
+let CustomBST = require('../src/Trees/CustomBST');
 
 describe("Trees test suite", function() {
    describe("InOrder traversal", function() {
@@ -194,6 +195,20 @@ describe("Trees test suite", function() {
             oHead2.right = new BTNode(6);
 
             expect(isSubStree(oHead, oHead2)).toEqual(false);
+        });
+    });
+
+    describe("Get random node", function() {
+        it("should return a random node", function() {
+            let oHead = new BTNode(1);
+            oHead.left = new BTNode(2);
+            oHead.right = new BTNode(3);
+            oHead.right.left = new BTNode(4);
+            oHead.right.right = new BTNode(5);
+
+            //Check this one manually
+            let oBST = new CustomBST(oHead);
+            let oNode = oBST.getRandomNode();
         });
     });
 });
