@@ -1,6 +1,7 @@
 let StringWordMapper = require('../src/Strings/StringWordMapper');
 let longestCommonPrefix = require('../src/Strings/LongestCommonPrefix');
 let licenseStringFormatter = require('../src/Strings/LicenseStringFormatter');
+let isAllUnique = require('../src/Strings/AllUniqueChars');
 
 describe("Strings test suite", function() {
     describe("StringWordMapper", function() {
@@ -38,6 +39,18 @@ describe("Strings test suite", function() {
     describe("license string formmater", function() {
         it("should return the correct string", function() {
             expect(licenseStringFormatter("2-4A0r7-4k", 4)).toEqual("24A0-R74K");
+        });
+    });
+
+    describe("All characters unique checker", function() {
+        it("should return true for all uniques", function() {
+            let strTest = "hi alex";
+            expect(isAllUnique(strTest)).toEqual(true);
+        });
+
+        it("should return false for not all uniques", function() {
+            let strTest = "hello there";
+            expect(isAllUnique(strTest)).toEqual(false);
         });
     });
 });
