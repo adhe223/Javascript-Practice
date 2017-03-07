@@ -8,9 +8,9 @@ describe("Remove duplicates", function() {
         oHead.next.next = new LinkedListNode(2);
         oHead.next.next.next = new LinkedListNode(3);
 
-        let oResult = removeDuplicates(oHead);
-        expect(oResult.value).toEqual(1);
-        expect(oResult.next.value).toEqual(2);
-        expect(oResult.next.next.value).toEqual(3);
+        removeDuplicates(oHead);
+        expect(oHead.value).toEqual(1);
+        expect(oHead.next.value).toEqual(2);
+        expect(oHead.next.next.value).toEqual(3);
     });
 });
