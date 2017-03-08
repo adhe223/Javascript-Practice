@@ -2,6 +2,7 @@ let StringWordMapper = require('../src/Strings/StringWordMapper');
 let longestCommonPrefix = require('../src/Strings/LongestCommonPrefix');
 let licenseStringFormatter = require('../src/Strings/LicenseStringFormatter');
 let isAllUnique = require('../src/Strings/AllUniqueChars');
+let isPermute = require('../src/Strings/IsPermutation');
 
 describe("Strings test suite", function() {
     describe("StringWordMapper", function() {
@@ -51,6 +52,20 @@ describe("Strings test suite", function() {
         it("should return false for not all uniques", function() {
             let strTest = "hello there";
             expect(isAllUnique(strTest)).toEqual(false);
+        });
+    });
+
+    describe("Is Permutation checker", function() {
+        it("should return true for dog and god", function() {
+            let strOriginal = "dog";
+            let strPermute = "god";
+            expect(isPermute(strOriginal, strPermute)).toEqual(true);
+        });
+
+        it("should return false for dog and gog", function() {
+            let strOriginal = "dog";
+            let strPermute = "gog";
+            expect(isPermute(strOriginal, strPermute)).toEqual(false);
         });
     });
 });
