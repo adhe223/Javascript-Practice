@@ -3,6 +3,7 @@ let longestCommonPrefix = require('../src/Strings/LongestCommonPrefix');
 let licenseStringFormatter = require('../src/Strings/LicenseStringFormatter');
 let isAllUnique = require('../src/Strings/AllUniqueChars');
 let isPermute = require('../src/Strings/IsPermutation');
+let urlify = require('../src/Strings/URLify');
 
 describe("Strings test suite", function() {
     describe("StringWordMapper", function() {
@@ -66,6 +67,13 @@ describe("Strings test suite", function() {
             let strOriginal = "dog";
             let strPermute = "gog";
             expect(isPermute(strOriginal, strPermute)).toEqual(false);
+        });
+    });
+
+    describe("URLifier", function() {
+        it("should replace the spaces with %20", function() {
+            let aInput = ['h', 'e', 'l', 'l', 'o', ' ', 'a', '', ''];
+            expect(urlify(aInput, 6)).toEqual(['h', 'e', 'l', 'l', 'o', '%', '2', '0', 'a']);
         });
     });
 });

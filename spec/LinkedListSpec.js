@@ -1,6 +1,7 @@
 let LinkedListNode = require('../src/Helpers/LinkedListNode');
 let removeDuplicates = require('../src/LinkedLists/RemoveDuplicates');
 let getKthToLastNode = require('../src/LinkedLists/kthToLast');
+let removeNode = require('../src/LinkedLists/RemoveMiddle');
 
 describe("Linked list test suite", function() {
     describe("Remove duplicates", function () {
@@ -26,6 +27,20 @@ describe("Linked list test suite", function() {
             oHead.next.next.next.next = new LinkedListNode(5);
 
             expect(getKthToLastNode(oHead, 2).value).toEqual(oHead.next.next.next.value);
+        });
+    });
+
+    describe("Remove node", function() {
+        it("should remove a middle node", function() {
+            let oHead = new LinkedListNode(1);
+            oHead.next = new LinkedListNode(2);
+            oHead.next.next = new LinkedListNode(3);
+            oHead.next.next.next = new LinkedListNode(4);
+
+            removeNode(oHead.next);
+            expect(oHead.value).toEqual(1);
+            expect(oHead.next.value).toEqual(3);
+            expect(oHead.next.next.value).toEqual(4);
         });
     });
 });

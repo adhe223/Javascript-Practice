@@ -1,6 +1,7 @@
 let MinStack = require('../src/QueuesStacks/MinStack');
 let Node = require('../src/Helpers/Node');
 let SetOfStacks = require('../src/QueuesStacks/SetOfStacks');
+let MyQueue = require('../src/QueuesStacks/MyQueue');
 
 describe("Queues and Stack test suite", function() {
     describe("MinStack", function() {
@@ -33,6 +34,21 @@ describe("Queues and Stack test suite", function() {
             expect(oStacks.pop()).toEqual(2);
             expect(oStacks.pop()).toEqual(1);
             expect(oStacks.pop()).toBeNull();
+        });
+    });
+
+    describe("MyQueue", function() {
+        it("should work as expected", function() {
+            let q = new MyQueue();
+            q.enq(1);
+            q.enq(2);
+            q.enq(3);
+
+            expect(q.deq()).toEqual(1);
+            q.enq(4);
+            expect(q.deq()).toEqual(2);
+            expect(q.deq()).toEqual(3);
+            expect(q.deq()).toEqual(4);
         });
     });
 });
