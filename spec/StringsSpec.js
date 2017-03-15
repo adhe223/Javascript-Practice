@@ -4,6 +4,7 @@ let licenseStringFormatter = require('../src/Strings/LicenseStringFormatter');
 let isAllUnique = require('../src/Strings/AllUniqueChars');
 let isPermute = require('../src/Strings/IsPermutation');
 let urlify = require('../src/Strings/URLify');
+let WordCloud = require('../src/Strings/WordCloud');
 
 describe("Strings test suite", function() {
     describe("StringWordMapper", function() {
@@ -74,6 +75,29 @@ describe("Strings test suite", function() {
         it("should replace the spaces with %20", function() {
             let aInput = ['h', 'e', 'l', 'l', 'o', ' ', 'a', '', ''];
             expect(urlify(aInput, 6)).toEqual(['h', 'e', 'l', 'l', 'o', '%', '2', '0', 'a']);
+        });
+    });
+
+    describe("WordCloud", function() {
+        it("should count the words and add them to its hash", function() {
+            let strInput = "After beating the eggs, Dana read the next step:";
+            let wc = new WordCloud(strInput);
+            wc.buildHash();
+
+            expect(wc.oWordHash['after']).toEqual(1);
+            expect(wc.oWordHash['the']).toEqual(2);
+            expect(wc.oWordHash['eggs']).toEqual(1);
+            expect(wc.oWordHash['step']).toEqual(1);
+            expect(wc.oWordHash[':']).toBeUndefined();
+        });
+
+        it("should respect caps reasonably", function() {
+            let strInput = "After Bill at the cake.He payed the bill after.";
+            let wc = new WordCloud(strInput);
+            wc.buildHash();
+
+            expect(wc.oWordHash['after']).toEqual(2);
+            expect(wc.oWordHash['bill']).toEqual(2);
         });
     });
 });
