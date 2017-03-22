@@ -1,30 +1,31 @@
 function RoboVaccuum(mGrid) {
     this.mGrid = mGrid;
-    this.aMoves = [];
+    this.oCache = {};
+    this.iMoveCount = 0;
 }
 
 RoboVaccuum.prototype.walk = function(iX, iY) {
-    let bInBounds;
+    let bInBoundsRight, bInBoundsDown;
     let iRows = this.mGrid.length;
     let iCols = this.mGrid[0].length;
 
     if (iY === this.mGrid.length - 1 && iX === this.mGrid[0].length - 1) {
         return true;
     }
+    this.oCache['' + iX + iY] = true;
+    this.iMoveCount++;
 
-    bInBounds = iX + 1 < iCols;
-    if (bInBounds) {
-        let bIsTraversible = this.mGrid[iY][iX + 1];
-        if (bIsTraversible) {
+    bInBoundsRight = iX + 1 < iCols;
+    bInBoundsDown = iY + 1 < iRows;
 
+    if (bInBoundsRight || bInBoundsDown) {
+        let bIsTraversibleRight = bInBoundsRight && this.mGrid[iY][iX + 1] && !this.oCache['' + (iX + 1) + iY];
+        let bIsTraversibleDown = bInBoundsDown && this.mGrid[iY + 1][iX] && !this.oCache['' + iX + (iY + 1)];
+        if (bIsTraversibleRight && bIsTraversibleDown) {
+            return this.walk(iX + 1, iY) || this.walk(iX, iY + 1);
+        } else if (bIsTraversibleRight) {
             return this.walk(iX + 1, iY);
-        }
-    }
-
-    bInBounds = iY + 1 < iRows;
-    if (bInBounds) {
-        let bIsTraversible = this.mGrid[iY + 1][iX];
-        if (bIsTraversible) {
+        } else if (bIsTraversibleDown) {
             return this.walk(iX, iY + 1);
         }
     }
