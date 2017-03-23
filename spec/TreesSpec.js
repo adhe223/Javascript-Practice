@@ -10,6 +10,7 @@ let getFirstAncestor = require('../src/Trees/FirstCommonAncestor');
 let getAllArrays = require('../src/Trees/AllPossibleArrays');
 let isSubStree = require('../src/Trees/IsSubtree');
 let CustomBST = require('../src/Trees/CustomBST');
+let getLeastCommonAncestor = require('../src/Trees/LeastCommonAncestor');
 
 describe("Trees test suite", function() {
    describe("InOrder traversal", function() {
@@ -209,6 +210,28 @@ describe("Trees test suite", function() {
             //Check this one manually
             let oBST = new CustomBST(oHead);
             let oNode = oBST.getRandomNode();
+        });
+    });
+
+    describe("Least common ancestor", function() {
+        it("should get the ancestor node on opposite side", function() {
+            let oHead = new BTNode(1);
+            oHead.left = new BTNode(2);
+            oHead.right = new BTNode(3);
+            oHead.left.left = new BTNode(4);
+            oHead.right.right = new BTNode(5);
+
+            expect(getLeastCommonAncestor(oHead, oHead.left, oHead.right.right)).toBe(oHead);
+        });
+
+        it("should get the ancestor node on same side", function() {
+            let oHead = new BTNode(1);
+            oHead.left = new BTNode(2);
+            oHead.right = new BTNode(3);
+            oHead.left.left = new BTNode(4);
+            oHead.left.right = new BTNode(5);
+
+            expect(getLeastCommonAncestor(oHead, oHead.left.left, oHead.left.right)).toBe(oHead.left);
         });
     });
 });
