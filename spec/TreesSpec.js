@@ -11,6 +11,7 @@ let getAllArrays = require('../src/Trees/AllPossibleArrays');
 let isSubStree = require('../src/Trees/IsSubtree');
 let CustomBST = require('../src/Trees/CustomBST');
 let getLeastCommonAncestor = require('../src/Trees/LeastCommonAncestor');
+let mergeBSTs = require('../src/Trees/MergeTrees');
 
 describe("Trees test suite", function() {
    describe("InOrder traversal", function() {
@@ -232,6 +233,25 @@ describe("Trees test suite", function() {
             oHead.left.right = new BTNode(5);
 
             expect(getLeastCommonAncestor(oHead, oHead.left.left, oHead.left.right)).toBe(oHead.left);
+        });
+    });
+
+    describe("BST Merger", function() {
+        it("should merge the tree together", function() {
+            let oFirst = new BTNode(3);
+            oFirst.left = new BTNode(2);
+            oFirst.right = new BTNode(4);
+
+            let oSecond = new BTNode(6);
+            oSecond.left = new BTNode(1);
+            oSecond.right = new BTNode(10);
+
+            mergeBSTs(oFirst, oSecond);
+            expect(oFirst.value).toEqual(3);
+            expect(oFirst.left.value).toEqual(2);
+            expect(oFirst.left.left.value).toEqual(1);
+            expect(oFirst.right.value).toEqual(4);
+            expect(oFirst.right.right.value).toEqual(10);
         });
     });
 });
