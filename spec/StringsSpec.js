@@ -5,6 +5,7 @@ let isAllUnique = require('../src/Strings/AllUniqueChars');
 let isPermute = require('../src/Strings/IsPermutation');
 let urlify = require('../src/Strings/URLify');
 let WordCloud = require('../src/Strings/WordCloud');
+let getIncreasingSubstrings = require('../src/Strings/IncreasingSubstrings');
 
 describe("Strings test suite", function() {
     describe("StringWordMapper", function() {
@@ -98,6 +99,14 @@ describe("Strings test suite", function() {
 
             expect(wc.oWordHash['after']).toEqual(2);
             expect(wc.oWordHash['bill']).toEqual(2);
+        });
+    });
+
+    describe("Increasing Substrings", function() {
+        it("should return ab, ad", function() {
+            let str = "abad";
+            let aRes = getIncreasingSubstrings(str);
+            expect(aRes).toEqual(["ab", "ad"]);
         });
     });
 });

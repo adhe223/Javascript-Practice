@@ -11,7 +11,8 @@ let getAllArrays = require('../src/Trees/AllPossibleArrays');
 let isSubStree = require('../src/Trees/IsSubtree');
 let CustomBST = require('../src/Trees/CustomBST');
 let getLeastCommonAncestor = require('../src/Trees/LeastCommonAncestor');
-let mergeBSTs = require('../src/Trees/MergeTrees');
+let mergeBSTs = require('../src/Trees/MergeTrees2');
+let genXML = require('../src/Trees/XMLGen');
 
 describe("Trees test suite", function() {
    describe("InOrder traversal", function() {
@@ -252,6 +253,20 @@ describe("Trees test suite", function() {
             expect(oFirst.left.left.value).toEqual(1);
             expect(oFirst.right.value).toEqual(4);
             expect(oFirst.right.right.value).toEqual(10);
+        });
+    });
+
+    describe("XML Generator", function() {
+        it("should build our xml string", function() {
+            let oHead = new BTNode("XML");
+            oHead.left = new BTNode("Fun");
+            oHead.left.left = new BTNode("Cindy");
+            oHead.left.right = new BTNode("HotDog");
+            oHead.right = new BTNode("Boring");
+
+            let strExpected = "<XML><Fun><Cindy></Cindy><HotDog></HotDog></Fun><Boring></Boring></XML>";
+            let strRes = genXML(oHead);
+            expect(strRes).toEqual(strExpected);
         });
     });
 });

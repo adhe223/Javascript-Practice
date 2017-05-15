@@ -2,6 +2,7 @@ let MinStack = require('../src/QueuesStacks/MinStack');
 let Node = require('../src/Helpers/Node');
 let SetOfStacks = require('../src/QueuesStacks/SetOfStacks');
 let MyQueue = require('../src/QueuesStacks/MyQueue');
+let sortStack = require('../src/QueuesStacks/StackSort');
 
 describe("Queues and Stack test suite", function() {
     describe("MinStack", function() {
@@ -49,6 +50,13 @@ describe("Queues and Stack test suite", function() {
             expect(q.deq()).toEqual(2);
             expect(q.deq()).toEqual(3);
             expect(q.deq()).toEqual(4);
+        });
+    });
+
+    describe("Sort Stack with Stack", function() {
+        fit("should sort in descending order", function() {
+            let aStack = [1, 6, 2, 4];
+            expect(sortStack(aStack)).toEqual([1,2,4,6]);
         });
     });
 });
